@@ -1,5 +1,10 @@
 const Event = require('./model');
 
+const Task = require('../task/model');
+const Guest = require('../guest/model');
+const Dish = require('../dish/model');
+const ShoppingItem = require('../shopping/model');
+
 const getEvents = async (req, res) => {
   try {
     const events = await Event.find();
@@ -10,6 +15,18 @@ const getEvents = async (req, res) => {
       error: error.message
     });
   }
+};
+
+const getEventById = async (req, res) => {
+    try {
+        const event = await Event.findById(req.params.id);
+        if (!event) {
+            return res.status(404).json({ message: 'Event not found' });
+        }
+        res.status(200).json(event);
+    } catch (error) {
+        res.status(500).json({ message: 'Error by finding Event', error });
+    }
 };
 
 const createEvent = async (req, res) => {
@@ -79,9 +96,41 @@ const deleteEvent = async (req, res) => {
   }
 };
 
+const getEventCounts = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const [
+      tasks,
+      guests,
+      dishes,
+      shopping
+    ] = await Promise.all([
+      Task.countDocuments({ eventId: id, done: { $ne: true } }),
+      Guest.countDocuments({ eventId: id, status: { $ne: 'declined' } }),
+      Dish.countDocuments({ eventId: id }),
+      ShoppingItem.countDocuments({ eventId: id, bought: { $ne: true } }),
+    ]);
+
+    res.status(200).json({
+      tasks,
+      guests,
+      dishes,
+      shopping,
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: 'Error getting event counts',
+      error: error.message,
+    });
+  }
+};
+
 module.exports = {
   getEvents,
+  getEventById,
   createEvent,
   editEvent,
   deleteEvent,
+  getEventCounts,
 };
