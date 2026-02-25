@@ -102,10 +102,13 @@ Open src/modules/*/routes.js to see the concrete URLs (GET/POST/PUT/DELETE).
 
 ## Middleware
 
-- express.json() for JSON body parsing
-- cors() enabled (currently allows all origins)
-- If you want to restrict CORS later, update src/app.js, for example:
-- app.use(cors({ origin: "http://localhost:5173" }));
+- `express.json()` – JSON body parsing
+- `cors()` – enabled (currently allows all origins)
+
+To restrict CORS:
+
+```js
+app.use(cors({ origin: "http://localhost:5173" }));
 
 ## Notes
 
