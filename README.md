@@ -109,7 +109,8 @@ To restrict CORS:
 
 ```js
 app.use(cors({ origin: "http://localhost:5173" }));
-
+```
+---
 ## Notes
 
 mongoose.set('strictQuery', false); is enabled in src/server.js
