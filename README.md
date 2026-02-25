@@ -124,5 +124,5 @@ Database connection is created via process.env.MONGODB_LINK
 ## 👩‍💻 Author
 
 Yulia Siebrandt
-Frontend Developer
+Fullstack Developer
 Hamburg, Germany
