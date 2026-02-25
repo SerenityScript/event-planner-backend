@@ -117,6 +117,8 @@ mongoose.set('strictQuery', false); is enabled in src/server.js
 
 Database connection is created via process.env.MONGODB_LINK
 
+---
+
 ## Future Improvements
 
 - Authentication (JWT)
@@ -124,6 +126,8 @@ Database connection is created via process.env.MONGODB_LINK
 - Validation (Joi / Zod)
 - Swagger documentation
 - Docker support
+
+---
 
 ## 👩‍💻 Author
 
